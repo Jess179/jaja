@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated hearts background */
+        .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 15s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px 30px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+                width: 95%;
+                border-radius: 25px;
+            }
+        }
+
+        .heart-icon {
+            font-size: 80px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .morning-icon {
+            font-size: 80px;
+            animation: sunrise 2s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        @keyframes sunrise {
+            0%, 100% { 
+                transform: translateY(0px) scale(1); 
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.1); 
+                filter: brightness(1.2);
+            }
+        }
+
+        .greeting-title {
+            font-size: 2.5em;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @media (max-width: 600px) {
+            .greeting-title {
+                font-size: 1.8em;
+            }
+        }
+
+        .greeting-message {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 40px;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        @media (max-width: 600px) {
+            .greeting-message {
+                font-size: 1.2em;
+                margin-bottom: 30px;
+            }
+        }
+
+        .greeting-btn {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 18px 45px;
+            font-size: 1.3em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.8s ease 0.4s backwards, pulse 2s ease-in-out 1s infinite;
+        }
+
+        @media (max-width: 600px) {
+            .greeting-btn {
+                padding: 15px 35px;
+                font-size: 1.1em;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .greeting-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(25, 84, 123, 0.4);
+        }
+
+        .greeting-btn:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(0.95); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #c2185b;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .question {
+            font-size: 1.4em;
+            color: #555;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .question {
+                font-size: 1.2em;
+                margin-bottom: 30px;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            position: relative;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .button-container {
+                min-height: 180px;
+                gap: 15px;
+                padding: 15px;
+            }
+        }
+
+        button {
+            padding: 18px 45px;
+            font-size: 1.3em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            button {
+                padding: 15px 35px;
+                font-size: 1.1em;
+            }
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(245, 87, 108, 0.4);
+        }
+
+        .yes-btn:active {
+            transform: scale(0.95);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #555;
+            position: relative;
+            transition: all 0.15s ease;
+            z-index: 5;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: modalSlideIn 0.5s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .modal-content {
+                padding: 40px 30px;
+                width: 95%;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-heart {
+            font-size: 100px;
+            animation: heartPop 0.6s ease;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .modal-heart {
+                font-size: 80px;
+            }
+        }
+
+        @keyframes heartPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .modal h2 {
+            font-size: 2.2em;
+            color: #c2185b;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .modal h2 {
+                font-size: 1.8em;
+            }
+        }
+
+        .modal p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .modal p {
+                font-size: 1em;
+            }
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .close-btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+
+        .close-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f093fb;
+            animation: confettiFall 3s linear;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            from { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+            to { 
+                opacity: 0; 
+                transform: scale(0.9); 
+            }
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 1s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes sparkleAnim {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="heart-bg" id="heartBg"></div>
+
+    <!-- Greeting Screen -->
+    <div class="container" id="greetingScreen">
+        <div class="morning-icon">🌅</div>
+        <h1 class="greeting-title">Good Day Ma'am Ja!</h1>
+        <p class="greeting-message">Have a nice day!</p>
+        <button class="greeting-btn" id="greetingBtn">Good Day too! ☀️</button>
+    </div>
+
+    <!-- Valentine's Invitation Screen (hidden initially) -->
+    <div class="container" id="valentineScreen" style="display: none;">
+        <div class="heart-icon">💝</div>
+        <h1>Valentine's Day 2026</h1>
+        <p class="question">Can you be my Valentine's date?</p>
+        
+        <div class="button-container" id="buttonContainer">
+            <button class="yes-btn" id="yesBtn">Yes! 💕</button>
+            <button class="no-btn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="modal-heart">💖</span>
+            <h2>YESSS!</h2>
+            <p>You're officially my Valentine's date this February 14 💖<br><br>I'm really excited to spend the day with you and make it special together.</p>
+            <button class="close-btn" id="closeBtn">Close</button>
+        </div>
+    </div>
+
+    <!-- See You Soon Modal -->
+    <div class="modal" id="seeYouModal">
+        <div class="modal-content">
+            <span class="modal-heart">✨</span>
+            <h2>See You Soon Ma'am ja! 💕</h2>
+            <p>Can't wait for our Valentine's date!<br><br>It's going to be amazing! 🌟</p>
+            <button class="close-btn" id="closeSeeYouBtn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const modal = document.getElementById('modal');
+        const closeBtn = document.getElementById('closeBtn');
+        const buttonContainer = document.getElementById('buttonContainer');
+        const heartBg = document.getElementById('heartBg');
+        const greetingScreen = document.getElementById('greetingScreen');
+        const valentineScreen = document.getElementById('valentineScreen');
+        const greetingBtn = document.getElementById('greetingBtn');
+        const seeYouModal = document.getElementById('seeYouModal');
+        const closeSeeYouBtn = document.getElementById('closeSeeYouBtn');
+
+        let seeYouTimeout;
+
+        // Enhanced greeting button with sparkle effect
+        greetingBtn.addEventListener('click', function(e) {
+            createSparkles(e.clientX, e.clientY);
+            
+            greetingScreen.style.animation = 'fadeOut 0.6s ease';
+            setTimeout(() => {
+                greetingScreen.style.display = 'none';
+                valentineScreen.style.display = 'block';
+                valentineScreen.style.animation = 'modalSlideIn 0.6s ease';
+            }, 600);
+        });
+
+        // Create sparkle effect
+        function createSparkles(x, y) {
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                sparkle.style.animationDelay = (i * 0.05) + 's';
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        }
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = ['💕', '💖', '💗', '💝', '❤️'][Math.floor(Math.random() * 5)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartBg.appendChild(heart);
+            }
+        }
+        createFloatingHearts();
+
+        // Enhanced NO button movement - moves in all directions within container
+        function moveNoButton() {
+            const containerRect = buttonContainer.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+            
+            // Change to absolute positioning on first interaction
+            if (noBtn.style.position !== 'absolute') {
+                const btnRect = noBtn.getBoundingClientRect();
+                const containerRect = buttonContainer.getBoundingClientRect();
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = (btnRect.left - containerRect.left) + 'px';
+                noBtn.style.top = (btnRect.top - containerRect.top) + 'px';
+            }
+            
+            const maxX = containerRect.width - btnRect.width;
+            const maxY = containerRect.height - btnRect.height;
+            
+            let newX, newY;
+            let attempts = 0;
+            const maxAttempts = 20;
+            
+            do {
+                // Generate random position within the entire container
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
+                attempts++;
+                
+                // Calculate distance from Yes button
+                const yesBtnX = yesRect.left - containerRect.left;
+                const yesBtnY = yesRect.top - containerRect.top;
+                const distanceFromYes = Math.sqrt(
+                    Math.pow(newX - yesBtnX, 2) + Math.pow(newY - yesBtnY, 2)
+                );
+                
+                // Ensure it's far enough from Yes button (at least 120px away)
+                if (distanceFromYes > 120) {
+                    break;
+                }
+            } while (attempts < maxAttempts);
+            
+            // Apply new position with smooth transition
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+        }
+
+        // Move NO button on mouse enter
+        noBtn.addEventListener('mouseenter', moveNoButton);
+
+        // Move NO button on touch start (for mobile)
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Prevent click on NO button (just in case someone manages to click it)
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // YES button click - show modal with confetti
+        yesBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            createConfetti();
+            
+            // Start 30-second timer for "See You Soon" modal
+            seeYouTimeout = setTimeout(() => {
+                seeYouModal.classList.add('active');
+            }, 30000);
+        });
+
+        // Close success modal
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        // Close see you modal
+        closeSeeYouBtn.addEventListener('click', function() {
+            seeYouModal.classList.remove('active');
+        });
+
+        // Close modals when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        seeYouModal.addEventListener('click', function(e) {
+            if (e.target === seeYouModal) {
+                seeYouModal.classList.remove('active');
+            }
+        });
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#ffd89b', '#19547b'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.top = '-10px';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
